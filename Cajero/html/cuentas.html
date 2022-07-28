@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Cuentas</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+   
+
+    <main class= "badge-dark text-white py-5 text-center" >   
+            
+        <div class="conteiner text-center">
+        <div class ="text-center">
+            <div id = "box-transformers" class="row rwo-cols-2">
+                <div class="col mb-3">
+                    <button onclick="cerrarSesion()" class = "botones cerrarSesion">Cerrar Sesion</button>
+                    <div class="card bg-secondary" >
+                        <div class="w-50">
+                            <p></p>
+                            <img src="../img/avatar1.png" alt="" style="height: 70px; width: 70px;" class="img-fluid" class = "text-center">
+                            <div class=""></div>
+                        </div>
+                        <div class="w-50 text-center">
+                            <div class=""></div>
+                        </div>
+                        <div class="w-50">
+                            <h1 id ="titulo"></h1>
+                            <div class="w-50" id = "divCuentas">
+                                <p>Cuenta:</p>
+                                <p id ="noCuenta"></p>
+                                <p>Saldo:</p>
+                                <p id ="saldo"></p>
+                            </div>
+                            <div class="w-50">
+                                <div><input type="text" id="cantidad" class="cantidad cajaTexto"></div>
+                                <br>
+                                <tr> <button id="retiro" class = "botones" onclick = "retiro()">Retiro</button></tr>
+                                <tr><button id="deposito" class = "botones" onclick = "deposito()">Deposito</button></tr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="../js/cuentas.js"></script>
+<script>
+    window.onload = cargaCuentas();
+</script> 
+</body>
+</html>

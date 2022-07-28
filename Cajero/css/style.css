@@ -1,0 +1,26 @@
+.contenedor{
+    width: 100%;
+    max-width: 990px;
+    margin: auto; 
+    text-align: center;  
+}
+.botones{
+    border-radius: 30px;
+    border-color: transparent;
+    flex: auto;
+    cursor: pointer;
+}
+.cajaTexto{
+    border-radius: 30px;
+    flex: auto;
+    cursor: text;
+}
+.cerrarSesion{
+    background-color: red;
+    color: whitesmoke;    
+}
+
+.inicioSesion{
+    background-color: blue;
+    color: whitesmoke;    
+}
