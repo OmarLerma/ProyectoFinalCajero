@@ -23,6 +23,7 @@ const asistente =[
     }
 ]
 
+
 function addItems(key,item){
     if(typeof item == 'string'){
         localStorage.setItem(key,item) 
@@ -52,7 +53,10 @@ function inicio(){
     && asistente.pass === contra))
  
     if(email == '' || contra  == '' || user == '[]'){
-        alert('Error en los datos... intente de nuevo')
+        Swal.fire({
+            title: "Error",
+            text: "Error en los datos ingresados...¡verifique!"
+        });
         document.getElementById('usu').value = '';
         document.getElementById('passw').value = '';
         document.getElementById('usu').focus();

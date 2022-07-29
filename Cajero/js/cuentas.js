@@ -4,6 +4,18 @@ const saldol = document.querySelector('#saldo');
 const cantidad = document.querySelector('#cantidad')
 let sdo = 0;
 
+function validaNumericos(){
+    var inputtxt = document.getElementById('text'); 
+    var valor = inputtxt.value;
+    for(i=0;i<valor.length;i++){
+        var code=valor.charCodeAt(i);
+            if(code<=48 || code>=57){          
+              inputtxt.value=""; 
+              return;
+            }    
+      }
+     
+   }
 
 function cargaCuentas(){
     if(localStorage.getItem("Cuentas")){             
@@ -16,73 +28,91 @@ function cargaCuentas(){
        noCuenta.textContent =`${cuenta}`; 
        saldol.textContent = `$${saldo}`; 
        sdo = parseFloat(saldo);
-
-       
-        // var cuentas = usuario[0].cuentas;
-        // console.log(cuentas[0])
-        // // let cuenta = JSON.parse(cuentas);
-        // for(let i =0; cuentas.length > i ; i++){
-
-        //     let dv = document.createElement("dv");
-        //     let texto = document.createTextNode(cuentas[i].noCuenta);
-        //     let texto2 = document.createTextNode(cuentas[i].saldo);
-        //     dv.appendChild(dv);
-        //     texto.appendChild("Cuenta: \t" + texto);
-        //     texto2.appendChild("Cuenta: \t" + texto2)
-        // }
-    //    alert(cuenta.length)
-    //    alert(cuenta); 
-    //    var cta = JSON.parse(cuenta);
-    //    alert(cta[0]);     
-    //     for(var i = 0; i < localStorage.length; i++) {   
-    //         console.log(localStorage.key(i));
-    //       }
-
     }else{
         cerrarSesion();
     }
 }
 
 function cerrarSesion(){
-    localStorage.clear;
-    window.open('index.html',"_self")
-
+    localStorage.removeItem("Cuentas");
+    window.open('index.html',"_self");
 }
 
 function retiro(){
     let cantidad =document.getElementById('cantidad').value;
-    if(parseFloat(sdo) >= 10){
-        sdo = parseFloat(sdo) - parseFloat(cantidad) 
-        if (sdo < 10){
-            sdo = parseFloat(cantidad) + parseFloat(sdo)
-            let disponible = sdo - 10
-            if (disponible < 10){
-                disponible = 0
-            }
-            alert("No puedes tener menos de $10 en esta cuenta, por el momento solo cuentas con: $" + disponible + " para retirar")
-        }      
+    if (cantidad === '' || parseFloat(cantidad) < 1 ){
+        let mensaje ="Verifique la cantidad a retirar no se permiten cantidades negativas, en 0 o en blanco";
+        Swal.fire({
+            title: "¡Informacion!",
+            text: mensaje
+        });
+    }else{
+        if(parseFloat(sdo) >= 10){
+            sdo = parseFloat(sdo) - parseFloat(cantidad) 
+            if (sdo < 10){
+                sdo = parseFloat(cantidad) + parseFloat(sdo)
+                let disponible = sdo - 10
+                if (disponible < 10){
+                    disponible = 0
+                }
+                let mensaje ="No puedes tener menos de $10 en esta cuenta, por el momento solo cuentas con: $" + disponible + " para retirar";
+                Swal.fire({
+                    title: "¡Informacion!",
+                    text: mensaje
+                });
+                document.getElementById('cantidad').value = '';
+                document.getElementById('cantidad').focus();
+            } else{
+            let mensaje ="Transaccion Exitosa, retiro por la cantidad de $"+cantidad;
+            Swal.fire({
+                title: "¡Informacion!",
+                text: mensaje
+            });
+            afectaStorage();   
+        }  
+        }
         
     }
-    afectaStorage();       
 }
 
 
 function deposito(){
     let cantidad =document.getElementById('cantidad').value;
-    if(parseFloat(sdo) <= 990){
-        sdo = parseFloat(cantidad) + parseFloat(sdo)
-        if (sdo > 990){
-            sdo = parseFloat(sdo) - parseFloat(cantidad)
-            let disponible = 990 - sdo                     
-            alert("No puedes tener mas de $990 en esta cuenta, por el momento solo puede depositar un maximo de $"+ disponible) 
+    if (cantidad === '' || parseFloat(cantidad) < 1 ){
+        let mensaje ="Verifique la cantidad a depositar no se permiten cantidades negativas, en 0 o en blanco";
+        Swal.fire({
+            title: "¡Informacion!",
+            text: mensaje
+        });
+    }else{
+        if(parseFloat(sdo) <= 990){
+            sdo = parseFloat(cantidad) + parseFloat(sdo)
+            if (sdo > 990){
+                sdo = parseFloat(sdo) - parseFloat(cantidad)
+                let disponible = 990 - sdo  
+                let mensaje = "No puedes tener mas de $990 en esta cuenta, por el momento solo puede depositar un maximo de $"+ disponible;
+                Swal.fire({
+                    title: "¡Informacion!",
+                    text: mensaje
+                });
+                document.getElementById('cantidad').value = '';
+                document.getElementById('cantidad').focus();
+            }else{
+                let mensaje ="Transaccion Exitosa, deposito por la cantidad de $"+cantidad;
+                Swal.fire({
+                    title: "¡Informacion!",
+                    text: mensaje
+                });
+                afectaStorage();   
+            } 
         }
-    }
-    saldol.textContent = `$${sdo}`;
-    afectaStorage();
+        
+    } 
 }
 
 function afectaStorage(){
-    document.getElementById('cantidad').value = '';        
+    document.getElementById('cantidad').value = ''; 
+    document.getElementById('cantidad').focus();       
     saldol.textContent = `$${sdo}`;
     let usuario = JSON.parse(localStorage.getItem("Cuentas"));
     usuario[0].saldo = sdo;

@@ -1,26 +1,44 @@
+.fondo{
+    background-color:black;
+    background: url(../img/background.jpg);    
+}
 .contenedor{
     width: 100%;
-    max-width: 990px;
+    max-width: 250px;
+    height: 500px;
     margin: auto; 
-    text-align: center;  
+    text-align: center;
+    border: black;
+    background-color: whitesmoke;
 }
 .botones{
     border-radius: 30px;
-    border-color: transparent;
+    border-color: blue;
     flex: auto;
     cursor: pointer;
+    background-color: transparent;
+   
 }
 .cajaTexto{
-    border-radius: 30px;
+    border-radius: 10px;
+    border-color: transparent;
     flex: auto;
     cursor: text;
+    position: relative;
 }
 .cerrarSesion{
     background-color: red;
-    color: whitesmoke;    
+    border-radius: 30px;
+    flex: auto;
+    color: whitesmoke; 
+    border-color: transparent;
 }
 
 .inicioSesion{
     background-color: blue;
+    border-radius: 30px;
+    border-color: transparent;
     color: whitesmoke;    
+    flex: auto;
+    animation: infinite;
 }
